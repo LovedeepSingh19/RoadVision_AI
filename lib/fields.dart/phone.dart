@@ -50,92 +50,117 @@ class _phoneFieldState extends State<phoneField>
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return Column(
       children: [
-        TweenAnimationBuilder<double>(
-          duration: const Duration(milliseconds: 300),
-          tween: Tween(begin: 0, end: widget.fadephone ? 0 : 1),
-          builder: ((_, value, __) => Opacity(
-                opacity: value,
-                child: TextFormField(
-                  controller: phoneController,
-                  focusNode: node,
-                  decoration: const InputDecoration(hintText: "phone"),
-                  keyboardType: TextInputType.phone,
-                  onChanged: (value) async {
-                    if (value.isNotEmpty) {
-                      if (isValidphone(value)) {
-                        setState(() {
-                          bottomAnimationValue = 0;
-                          opacityAnimationValue = 1;
-                          paddingAnimationValue = const EdgeInsets.only(top: 0);
-                        });
-                        _animationController.forward();
-                      } else {
-                        _animationController.reverse();
-                        setState(() {
-                          bottomAnimationValue = 1;
-                          opacityAnimationValue = 0;
-                          paddingAnimationValue =
-                              const EdgeInsets.only(top: 22);
-                        });
-                      }
-                    } else {
-                      setState(() {
-                        bottomAnimationValue = 0;
-                      });
-                    }
-                  },
-                ),
-              )),
-        ),
-        Positioned.fill(
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 500),
-              width: widget.fadephone ? 0 : 300,
-              child: TweenAnimationBuilder<double>(
-                tween: Tween(begin: 0, end: bottomAnimationValue),
-                curve: Curves.easeIn,
-                duration: const Duration(milliseconds: 500),
-                builder: ((context, value, child) => LinearProgressIndicator(
-                      value: value,
-                      backgroundColor: Colors.grey.withOpacity(0.5),
-                      color: Colors.black,
-                    )),
-              ),
-            ),
-          ),
-        ),
-        Positioned.fill(
-          child: AnimatedPadding(
-            curve: Curves.easeIn,
-            duration: const Duration(milliseconds: 500),
-            padding: paddingAnimationValue,
-            child: TweenAnimationBuilder<double>(
+        Stack(
+          children: [
+            TweenAnimationBuilder<double>(
+              duration: const Duration(milliseconds: 300),
               tween: Tween(begin: 0, end: widget.fadephone ? 0 : 1),
-              duration: const Duration(milliseconds: 700),
-              builder: ((context, value, child) => Opacity(
+              builder: ((_, value, __) => Opacity(
                     opacity: value,
-                    child: Align(
-                      alignment: AlignmentDirectional.centerEnd,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12.0)
-                            .copyWith(bottom: 0),
-                        child: Icon(Icons.check_rounded,
-                            size: 27, color: _animation.value),
+                    child: TextFormField(
+                      controller: phoneController,
+                      focusNode: node,
+                      decoration: const InputDecoration(
+                        hintText: " +91  |  Phone Number",
                       ),
+                      keyboardType: TextInputType.phone,
+                      onChanged: (value) async {
+                        if (value.isNotEmpty) {
+                          if (isValidphone(value)) {
+                            setState(() {
+                              bottomAnimationValue = 0;
+                              opacityAnimationValue = 1;
+                              paddingAnimationValue =
+                                  const EdgeInsets.only(top: 0);
+                            });
+                            _animationController.forward();
+                          } else {
+                            _animationController.reverse();
+                            setState(() {
+                              bottomAnimationValue = 1;
+                              opacityAnimationValue = 0;
+                              paddingAnimationValue =
+                                  const EdgeInsets.only(top: 22);
+                            });
+                          }
+                        } else {
+                          setState(() {
+                            bottomAnimationValue = 0;
+                          });
+                        }
+                      },
                     ),
                   )),
             ),
-          ),
+            Positioned.fill(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 500),
+                  width: widget.fadephone ? 0 : 300,
+                  child: TweenAnimationBuilder<double>(
+                    tween: Tween(begin: 0, end: bottomAnimationValue),
+                    curve: Curves.easeIn,
+                    duration: const Duration(milliseconds: 500),
+                    builder: ((context, value, child) =>
+                        LinearProgressIndicator(
+                          value: value,
+                          backgroundColor: Colors.grey.withOpacity(0.5),
+                          color: Colors.black,
+                        )),
+                  ),
+                ),
+              ),
+            ),
+            Positioned.fill(
+              child: AnimatedPadding(
+                curve: Curves.easeIn,
+                duration: const Duration(milliseconds: 500),
+                padding: paddingAnimationValue,
+                child: TweenAnimationBuilder<double>(
+                  tween: Tween(begin: 0, end: widget.fadephone ? 0 : 1),
+                  duration: const Duration(milliseconds: 700),
+                  builder: ((context, value, child) => Opacity(
+                        opacity: value,
+                        child: Align(
+                          alignment: AlignmentDirectional.centerEnd,
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 12.0)
+                                    .copyWith(bottom: 0),
+                            child: Icon(Icons.check_rounded,
+                                size: 27, color: _animation.value),
+                          ),
+                        ),
+                      )),
+                ),
+              ),
+            ),
+          ],
         ),
+        const SizedBox(
+          height: 20,
+        ),
+        if ((!isValidphone(phoneController.text)) &&
+            (phoneController.text.length >= 10))
+          const Text(
+            "Please add county code before the number",
+            style: TextStyle(
+              color: Colors.redAccent,
+              fontWeight: FontWeight.w700,
+              fontSize: 14.0,
+            ),
+            textAlign: TextAlign.center,
+          ),
       ],
     );
   }
 
   bool isValidphone(String phone) {
-    return phone.length >= 10;
+    RegExp countryCodePattern = RegExp(r'^\+\d+');
+
+    return countryCodePattern.hasMatch(phone) && (phone.length == (12 | 13));
   }
 }
