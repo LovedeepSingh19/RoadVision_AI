@@ -19,6 +19,13 @@ dependencies:
   firebase_auth: ^4.7.3
   cloud_firestore: ^4.8.5
   firebase_storage: ^11.2.6
+  image_picker: ^1.0.2
+  permission_handler: ^10.4.3
+  location: ^5.0.3
+  video_player: ^2.7.0
+  video_compress: ^3.1.0
+  get: ^4.6.5
+  video_thumbnail: ^0.5.3
 
 dev_dependencies:
   flutter_test:
