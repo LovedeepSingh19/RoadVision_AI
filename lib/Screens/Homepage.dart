@@ -72,14 +72,14 @@ class _HomePageState extends State<HomePage> {
         ),
         ElevatedButton(
             onPressed: () {
-              // registerUser(_phoneController.text, context);
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => VerificationPage(
-                            verificationKey: '',
-                            phoneController: _phoneController,
-                          )));
+              registerUser(_phoneController.text, context);
+              // Navigator.push(
+              //     context,
+              //     MaterialPageRoute(
+              //         builder: (context) => VerificationPage(
+              //               verificationKey: '',
+              //               phoneController: _phoneController,
+              //             )));
             },
             child: Container(
               child: const Text("Next"),
