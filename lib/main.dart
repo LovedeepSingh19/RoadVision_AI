@@ -44,8 +44,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      print(user!.uid);
-      fetchDocument(user!.uid, context);
+      print(user.uid);
+      fetchDocument(user.uid, context);
     }
     return MaterialApp(
         title: 'Flutter Demo',
@@ -54,6 +54,10 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: user != null ? WelcomePage() : HomePage());
+        home: user != null
+            ? WelcomePage(
+                filter: "timestamp",
+              )
+            : HomePage());
   }
 }

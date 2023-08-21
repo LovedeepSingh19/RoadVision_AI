@@ -24,7 +24,11 @@ Future registerUser(String mobile, BuildContext context) async {
       verificationCompleted: (AuthCredential authCredential) {
         _auth.signInWithCredential(authCredential).then((result) {
           Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => WelcomePage()));
+              context,
+              MaterialPageRoute(
+                  builder: (context) => WelcomePage(
+                        filter: 'timestamp',
+                      )));
         });
       },
       verificationFailed: (authException) {
@@ -72,6 +76,14 @@ class _HomePageState extends State<HomePage> {
         ),
         ElevatedButton(
             onPressed: () {
+              showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (context) {
+                  return const LoadingDialog();
+                },
+              );
+
               registerUser(_phoneController.text, context);
               // Navigator.push(
               //     context,

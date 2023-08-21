@@ -61,7 +61,17 @@ class _UserDialogState extends State<UserDialog> {
     }
   }
 
+  String error = '';
+  bool isDisabled = false;
+
   Future<void> _uploadProfileData() async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return const LoadingDialog();
+      },
+    );
     final name = _nameController.text;
 
     if (_selectedImage != null && name.isNotEmpty) {
@@ -86,10 +96,18 @@ class _UserDialogState extends State<UserDialog> {
         // Navigator.pop(context); // Close the dialog
         // ignore: use_build_context_synchronously
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => WelcomePage()));
+            context,
+            MaterialPageRoute(
+                builder: (context) => WelcomePage(
+                      filter: "timestamp",
+                    )));
       } catch (error) {
         print("Error uploading profile data: $error");
       }
+    } else {
+      setState(() {
+        error = "please enter the name and upload a photo";
+      });
     }
   }
 
@@ -130,6 +148,7 @@ class _UserDialogState extends State<UserDialog> {
             controller: _nameController,
             decoration: const InputDecoration(labelText: "Name"),
           ),
+          if (error.isNotEmpty) Text(error),
         ],
       ),
       actions: [
