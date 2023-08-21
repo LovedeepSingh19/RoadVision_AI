@@ -2,6 +2,7 @@ import 'package:blackcoffer_video/Screens/WelcomePage.dart';
 import 'package:blackcoffer_video/resources/firebase.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../modals/videos_modal.dart';
 import '../providers/user_provider.dart';
@@ -78,7 +79,10 @@ class _VideoInfoState extends State<VideoInfo> {
               GestureDetector(
                 onTap: () {
                   res = FireStoreMethods().likePost(
-                      widget.videoData.id, userP.uid, widget.videoData.likes);
+                      widget.videoData.id,
+                      userP.uid,
+                      widget.videoData.likes,
+                      widget.videoData.dislikes);
                   setState(() {});
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content:
@@ -128,8 +132,8 @@ class _VideoInfoState extends State<VideoInfo> {
               ),
               GestureDetector(
                 onTap: () {
-                  // print();
-                  // FireStoreMethods().likePost(, uid, likes)
+                  Share.share(
+                      "Hey Check out this cool video : ${widget.videoData.videoUrl}");
                 },
                 child: const Column(
                   mainAxisSize: MainAxisSize.min,

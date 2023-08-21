@@ -206,7 +206,7 @@ class _WelcomePageState extends State<WelcomePage> {
           child: Column(
             children: [
               SizedBox(
-                height: screenHeight / 1.30,
+                height: screenHeight / 1.28,
                 child: onClicked
                     ? VideoItemPage(videoData: videoData!)
                     : Scaffold(
@@ -360,67 +360,63 @@ class _WelcomePageState extends State<WelcomePage> {
                                                     ),
                                                   ),
                                                   subtitle: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
                                                     children: [
+                                                      const Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                right: 3),
+                                                        child: Icon(
+                                                          Icons.person,
+                                                          size: 15,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        video.username,
+                                                        style: const TextStyle(
+                                                            fontSize: 12),
+                                                      ),
                                                       Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceEvenly,
                                                         children: [
-                                                          Row(
-                                                            children: [
-                                                              const Padding(
-                                                                padding: EdgeInsets
-                                                                    .only(
-                                                                        right:
-                                                                            3),
-                                                                child: Icon(
-                                                                  Icons.person,
-                                                                  size: 18,
-                                                                ),
-                                                              ),
-                                                              Text(video
-                                                                  .username),
-                                                            ],
+                                                          const Padding(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    right: 3),
+                                                            child: Icon(
+                                                              Icons
+                                                                  .remove_red_eye_rounded,
+                                                              size: 15,
+                                                            ),
                                                           ),
-                                                          Row(
-                                                            children: [
-                                                              const Padding(
-                                                                padding: EdgeInsets
-                                                                    .only(
-                                                                        right:
-                                                                            3),
-                                                                child: Icon(
-                                                                  Icons
-                                                                      .remove_red_eye_rounded,
-                                                                  size: 16,
-                                                                ),
-                                                              ),
-                                                              Text(
-                                                                '${video.views}',
-                                                              ),
-                                                            ],
+                                                          Text(
+                                                            '${video.views}',
+                                                            style:
+                                                                const TextStyle(
+                                                                    fontSize:
+                                                                        12),
                                                           ),
-                                                          Row(
-                                                            children: [
-                                                              const Padding(
-                                                                padding: EdgeInsets
-                                                                    .only(
-                                                                        right:
-                                                                            3),
-                                                                child: Icon(
-                                                                  Icons
-                                                                      .calendar_month_outlined,
-                                                                  size: 16,
-                                                                ),
-                                                              ),
-                                                              Text(
-                                                                daysAgo,
-                                                                style:
-                                                                    const TextStyle(
-                                                                        fontSize:
-                                                                            10),
-                                                              ),
-                                                            ],
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          const Padding(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    right: 3),
+                                                            child: Icon(
+                                                              Icons
+                                                                  .calendar_month_outlined,
+                                                              size: 15,
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            daysAgo,
+                                                            style:
+                                                                const TextStyle(
+                                                                    fontSize:
+                                                                        10),
                                                           ),
                                                         ],
                                                       ),
@@ -601,74 +597,69 @@ class _WelcomePageState extends State<WelcomePage> {
                                                     ),
                                                   ),
                                                   subtitle: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
                                                     children: [
                                                       Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceEvenly,
                                                         children: [
-                                                          Row(
-                                                            children: [
-                                                              const Padding(
-                                                                padding: EdgeInsets
-                                                                    .only(
-                                                                        right:
-                                                                            3),
-                                                                child: Icon(
-                                                                  Icons.person,
-                                                                  size: 18,
-                                                                ),
-                                                              ),
-                                                              Text(video
-                                                                  .username),
-                                                            ],
-                                                          ),
-                                                          Padding(
+                                                          const Padding(
                                                             padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    left: 6,
-                                                                    right: 6),
-                                                            child: Row(
-                                                              children: [
-                                                                const Padding(
-                                                                  padding: EdgeInsets
-                                                                      .only(
-                                                                          right:
-                                                                              3),
-                                                                  child: Icon(
-                                                                    Icons
-                                                                        .remove_red_eye_rounded,
-                                                                    size: 16,
-                                                                  ),
-                                                                ),
-                                                                Text(
-                                                                  '${video.views}',
-                                                                ),
-                                                              ],
+                                                                EdgeInsets.only(
+                                                                    right: 3),
+                                                            child: Icon(
+                                                              Icons.person,
+                                                              size: 15,
                                                             ),
                                                           ),
-                                                          Row(
-                                                            children: [
-                                                              const Padding(
-                                                                padding: EdgeInsets
-                                                                    .only(
-                                                                        right:
-                                                                            3),
-                                                                child: Icon(
-                                                                  Icons
-                                                                      .calendar_month_outlined,
-                                                                  size: 16,
-                                                                ),
-                                                              ),
-                                                              Text(
-                                                                daysAgo,
-                                                                style:
-                                                                    const TextStyle(
-                                                                        fontSize:
-                                                                            10),
-                                                              ),
-                                                            ],
+                                                          Text(
+                                                            video.username,
+                                                            style:
+                                                                const TextStyle(
+                                                                    fontSize:
+                                                                        12),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          const Padding(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    right: 3),
+                                                            child: Icon(
+                                                              Icons
+                                                                  .remove_red_eye_rounded,
+                                                              size: 15,
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            '${video.views}',
+                                                            style:
+                                                                const TextStyle(
+                                                                    fontSize:
+                                                                        12),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          const Padding(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    right: 3),
+                                                            child: Icon(
+                                                              Icons
+                                                                  .calendar_month_outlined,
+                                                              size: 15,
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            daysAgo,
+                                                            style:
+                                                                const TextStyle(
+                                                                    fontSize:
+                                                                        10),
                                                           ),
                                                         ],
                                                       ),

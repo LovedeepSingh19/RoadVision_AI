@@ -28,12 +28,19 @@ dependencies:
   video_thumbnail: ^0.5.3
   flutter_geocoder: ^0.2.2-nullsafety
   uuid: ^3.0.7
+  share_plus: ^7.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.13.1
 
   flutter_lints: ^2.0.0
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "images/main-app-logo.jpg"
 
 flutter:
 
