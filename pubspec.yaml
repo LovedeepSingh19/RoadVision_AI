@@ -26,6 +26,8 @@ dependencies:
   video_compress: ^3.1.0
   get: ^4.6.5
   video_thumbnail: ^0.5.3
+  flutter_geocoder: ^0.2.2-nullsafety
+  uuid: ^3.0.7
 
 dev_dependencies:
   flutter_test:

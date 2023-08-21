@@ -5,8 +5,8 @@ import 'package:blackcoffer_video/constants/category_list.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:location/location.dart';
-import 'package:video_player/video_player.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
+import 'package:flutter_geocoder/geocoder.dart';
 
 import '../controllers/upload_video_controller.dart';
 
@@ -27,18 +27,35 @@ class VideoPage extends StatefulWidget {
 
 class _VideoPageState extends State<VideoPage> {
   TextEditingController _titleController = TextEditingController();
-  TextEditingController _locationController = TextEditingController();
   String selectedValue = ''; // Initially no value is selected
 
   UploadVideoController uploadVideoController =
       Get.put(UploadVideoController());
 
   Uint8List? thumbnailData;
+  bool isUploading = false;
+
+  String? loc;
+
+  Future<void> getAddressFromCoordinates(Coordinates coordinates) async {
+    final addresses =
+        await Geocoder.local.findAddressesFromCoordinates(coordinates);
+    final first = addresses.first;
+    setState(() {
+      loc = "${first.locality}, ${first.countryName}";
+    });
+  }
 
   @override
   void initState() {
     super.initState();
     generateThumbnail();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    isUploading = false;
   }
 
   Future<void> generateThumbnail() async {
@@ -56,6 +73,10 @@ class _VideoPageState extends State<VideoPage> {
 
   @override
   Widget build(BuildContext context) {
+    Coordinates newCords = new Coordinates(
+        widget.locationdata.latitude, widget.locationdata.longitude);
+    getAddressFromCoordinates(newCords);
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -101,12 +122,10 @@ class _VideoPageState extends State<VideoPage> {
                       margin: const EdgeInsets.symmetric(horizontal: 10),
                       width: MediaQuery.of(context).size.width - 20,
                       child: TextFormField(
-                        controller: _locationController,
                         textAlign: TextAlign.center,
                         enabled: false,
                         decoration: InputDecoration(
-                          hintText:
-                              'lat: ${widget.locationdata.latitude}, lng: ${widget.locationdata.longitude}',
+                          hintText: loc,
                         ),
                       ),
                     ),
@@ -136,19 +155,35 @@ class _VideoPageState extends State<VideoPage> {
                     height: 40,
                   ),
                   ElevatedButton(
-                      onPressed: () => uploadVideoController.uploadVideo(
+                      onPressed: () async {
+                        setState(() {
+                          isUploading = true;
+                        });
+                        await uploadVideoController.uploadVideo(
                           _titleController.text,
-                          _locationController.text,
+                          loc!,
                           thumbnailData!,
-                          selectedValue,
+                          selectedValue ?? categoryList[0],
                           widget.videoFile,
-                          context),
-                      child: const Text(
-                        'Post',
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
-                      ))
+                          context,
+                        );
+                        setState(() {
+                          isUploading = false;
+                        });
+                      },
+                      child: isUploading
+                          ? CircularProgressIndicator()
+                          : const Text(
+                              'Post',
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
+                            )),
+                  if (isUploading)
+                    const Padding(
+                      padding: EdgeInsets.only(top: 8),
+                      child: (Text("please wait your post is uploading")),
+                    )
                 ],
               ),
             )
