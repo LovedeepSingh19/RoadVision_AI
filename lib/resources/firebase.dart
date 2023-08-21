@@ -4,11 +4,22 @@ import 'package:uuid/uuid.dart';
 class FireStoreMethods {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  String likePost(String postId, String uid, List likes) {
+  String likePost(String postId, String uid, List likes, List dislikes) {
     String res = "Some error occurred";
     try {
-      if (likes.contains(uid)) {
+      if (dislikes.contains(uid)) {
         // if the likes list contains the user uid, we need to remove it
+        _firestore.collection('videos').doc(postId).update({
+          'dislikes': FieldValue.arrayRemove([uid])
+        });
+        _firestore.collection('videos').doc(postId).update(
+          {
+            'likes': FieldValue.arrayUnion([uid])
+          },
+        );
+        res = 'liked';
+      }
+      if (likes.contains(uid)) {
         _firestore.collection('videos').doc(postId).update({
           'likes': FieldValue.arrayRemove([uid])
         });
@@ -45,7 +56,7 @@ class FireStoreMethods {
         _firestore.collection('videos').doc(postId).update({
           'dislikes': FieldValue.arrayRemove([uid])
         });
-        res = 'disliked removed';
+        res = 'dislike removed';
       } else {
         // else we need to add uid to the likes array
         _firestore.collection('videos').doc(postId).update({
