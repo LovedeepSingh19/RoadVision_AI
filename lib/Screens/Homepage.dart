@@ -57,18 +57,18 @@ class _HomePageState extends State<HomePage> {
         body: Column(
       children: [
         const SizedBox(
-          height: 160,
+          height: 250,
         ),
         const Center(
           child: Image(
-            image: AssetImage('images/Blackcoffer-logo-new.png'),
-            height: 180,
+            image: AssetImage('images/roadvisionai.png'),
+            height: 40,
             fit: BoxFit.cover,
           ),
         ),
         Padding(
-          padding:
-              const EdgeInsets.only(left: 100, right: 100, top: 70, bottom: 40),
+          padding: const EdgeInsets.only(
+              left: 100, right: 100, top: 140, bottom: 40),
           child: phoneField(
             phoneController: _phoneController,
             fadephone: _elementsOpacity == 0,
