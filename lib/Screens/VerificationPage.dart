@@ -71,7 +71,7 @@ class _VerificationPageState extends State<VerificationPage> {
           ),
           const Center(
             child: Image(
-              image: AssetImage('images/Blackcoffer-logo-new.png'),
+              image: AssetImage('images/roadvisionai.png'),
               height: 180,
               fit: BoxFit.cover,
             ),
