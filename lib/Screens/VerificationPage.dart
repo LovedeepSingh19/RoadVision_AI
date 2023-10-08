@@ -67,18 +67,18 @@ class _VerificationPageState extends State<VerificationPage> {
       body: Column(
         children: [
           const SizedBox(
-            height: 160,
+            height: 250,
           ),
           const Center(
             child: Image(
               image: AssetImage('images/roadvisionai.png'),
-              height: 180,
+              height: 40,
               fit: BoxFit.cover,
             ),
           ),
           Padding(
               padding: const EdgeInsets.only(
-                  left: 100, right: 100, top: 70, bottom: 40),
+                  left: 100, right: 100, top: 140, bottom: 40),
               child: TextFormField(
                 controller: _codeController,
                 decoration: const InputDecoration(
